@@ -1,52 +1,214 @@
-# 房贷还款计算器（Mortgage Calculator）
+# 房贷还款计算器 (Mortgage Calculator)
 
-一个世界级设计的房贷还款模拟与管理工具，支持等额本息/等额本金、动态调整、历史与版本管理等。
+一个功能强大的房贷还款计算和管理工具，支持多种还款方式计算、动态调整、历史记录管理等功能。基于 Next.js 14 和 TypeScript 构建，提供现代化的用户界面和完整的功能体验。
 
-## 功能特性
-- 贷款信息输入与实时校验
-- 等额本息/等额本金还款计划计算与展示
-- 还款总结、详细计划表、动态调整（利率/月供/提前还款）
-- 操作历史、版本管理与对比
-- 数据本地持久化
+## ✨ 功能特性
 
-- 响应式极简高端UI
+### 🧮 核心计算功能
+- **多种还款方式**：支持等额本息和等额本金两种还款方式
+- **精确计算**：提供精确的月供、总利息、总还款金额计算
+- **详细计划表**：生成完整的逐月还款计划，包含本金、利息、剩余本金等详细信息
 
-## 技术栈
-- Next.js 14 (App Router)
-- React 18 + TypeScript
-- Tailwind CSS 3
+### 🔧 动态调整功能
+- **利率调整**：支持任意期数的利率调整，实时计算影响
+- **月供调整**：支持调整月供金额，自动计算还款期数变化
+- **提前还款**：支持任意期数提前还款，支持部分和全额提前还款
 
+### 📊 数据管理功能
+- **操作历史**：完整记录所有操作历史，包含操作前后对比
+- **方案对比**：支持多个调整方案的对比分析
+- **数据持久化**：自动保存输入数据和操作记录
 
-## 快速开始
+### 🎨 用户界面
+- **响应式设计**：完美适配桌面端和移动端
+- **现代化UI**：基于 Tailwind CSS 的优雅界面设计
+- **交互友好**：直观的操作界面和实时反馈
+
+## 🛠 技术栈
+
+- **框架**: Next.js 14 (App Router)
+- **语言**: TypeScript
+- **前端**: React 18
+- **样式**: Tailwind CSS 3
+- **表单**: @tailwindcss/forms
+- **排版**: @tailwindcss/typography
+
+## 🚀 快速开始
+
+### 环境要求
+- Node.js 18.0 或更高版本
+- npm 或 yarn
+
+### 安装依赖
 ```bash
 npm install
-npm run dev
+# 或
+yarn install
 ```
 
-## 构建与部署
+### 启动开发服务器
+```bash
+npm run dev
+# 或
+yarn dev
+```
+
+打开 [http://localhost:3000](http://localhost:3000) 查看应用。
+
+### 构建生产版本
 ```bash
 npm run build
 npm start
+# 或
+yarn build
+yarn start
 ```
 
-## 依赖安装
+## 📁 项目结构
+
+```
+├── app/                    # Next.js App Router 页面
+│   ├── layout.tsx         # 根布局
+│   ├── page.tsx           # 首页（贷款信息输入）
+│   ├── result/            # 结果页面
+│   │   └── page.tsx       # 计算结果展示页面
+│   └── globals.css        # 全局样式
+├── components/            # React 组件
+│   ├── LoanInputForm.tsx          # 贷款信息输入表单
+│   ├── PaymentScheduleTable.tsx   # 还款计划表格
+│   ├── PaymentSummaryPanel.tsx    # 还款总结面板
+│   ├── OperationHistory.tsx       # 操作历史组件
+│   └── OperationModals.tsx        # 操作模态框集合
+├── types/                 # TypeScript 类型定义
+│   └── loan.ts           # 贷款相关数据类型
+├── lib/                  # 工具库
+│   └── validation.ts     # 输入验证逻辑
+└── README.md            # 项目文档
+```
+
+## 📋 功能详解
+
+### 1. 贷款信息输入
+- **贷款金额**：支持万元为单位的输入，自动转换
+- **年利率**：支持精确到小数点后两位的利率输入
+- **贷款年限**：支持1-50年的贷款期限
+- **开始还款日期**：可选择具体的还款开始日期
+- **还款方式**：等额本息或等额本金
+
+### 2. 还款计划展示
+- **分页显示**：支持自定义每页显示条数
+- **详细信息**：每期还款包含期数、日期、还款金额、本金、利息、剩余本金
+- **可视化**：本金比例的可视化显示条
+- **操作按钮**：每期支持利率调整、月供调整、提前还款操作
+
+### 3. 动态调整功能
+
+#### 利率调整
+- 选择任意期数进行利率调整
+- 实时计算调整后的影响
+- 保留调整历史记录
+
+#### 月供调整
+- 调整指定期数的月供金额
+- 自动计算对后续还款的影响
+- 支持增加或减少月供
+
+#### 提前还款
+- 支持任意期数的提前还款
+- 可选择部分提前还款或全额提前还款
+- 自动重新计算后续还款计划
+
+### 4. 数据管理
+- **自动保存**：输入数据自动保存到本地存储
+- **操作记录**：完整记录所有操作的时间、参数和影响
+- **方案对比**：支持查看操作前后的数据对比
+- **历史管理**：支持查看和管理操作历史
+
+## 🎯 使用指南
+
+### 基本使用流程
+1. **输入贷款信息**：在首页填写贷款金额、利率、年限等基本信息
+2. **选择还款方式**：选择等额本息或等额本金还款方式
+3. **查看计算结果**：系统自动计算并展示详细的还款计划
+4. **进行动态调整**：根据需要进行利率调整、月供调整或提前还款
+5. **查看操作历史**：查看所有操作记录和影响分析
+
+### 高级功能
+- **方案对比**：创建多个调整方案进行对比分析
+- **数据导出**：（计划中）支持将还款计划导出为Excel或PDF
+- **提醒设置**：（计划中）支持设置还款提醒
+
+## 🔧 开发指南
+
+### 开发环境设置
 ```bash
-npm install tailwindcss postcss autoprefixer @tailwindcss/forms @tailwindcss/typography
+# 克隆项目
+git clone <repository-url>
+cd mortgage-calculator
+
+# 安装依赖
+npm install
+
+# 启动开发服务器
+npm run dev
 ```
 
-## 目录结构
-```
-app/                # Next.js页面
-components/         # 主要UI组件
-context/            # 状态管理
-lib/                # 计算引擎与工具
-styles/             # TailwindCSS入口
-```
+### 代码规范
+- 使用 TypeScript 进行类型检查
+- 遵循 React Hooks 最佳实践
+- 使用 Tailwind CSS 进行样式开发
+- 组件采用函数式组件和 TypeScript 接口
 
-## TailwindCSS 初始化
+### 测试
 ```bash
-npx tailwindcss init -p
+# 类型检查
+npx tsc --noEmit
+
+# 代码规范检查
+npm run lint
 ```
 
-## 许可证
-MIT 
+## 🚀 部署
+
+### Vercel 部署（推荐）
+1. 将代码推送到 GitHub
+2. 在 Vercel 中导入项目
+3. 自动部署完成
+
+### 其他平台部署
+```bash
+# 构建生产版本
+npm run build
+
+# 启动生产服务器
+npm start
+```
+
+## 📄 许可证
+
+MIT License - 详见 [LICENSE](LICENSE) 文件
+
+## 🤝 贡献指南
+
+欢迎提交 Issue 和 Pull Request！
+
+1. Fork 项目
+2. 创建功能分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 创建 Pull Request
+
+## 📞 联系方式
+
+如有问题或建议，欢迎通过以下方式联系：
+- 提交 GitHub Issue
+- 发送邮件到项目维护者
+
+## 🔮 未来计划
+
+- [ ] 数据导出功能（Excel/PDF）
+- [ ] 还款提醒功能
+- [ ] 多方案保存和管理
+- [ ] 移动端 PWA 支持
+- [ ] 数据可视化图表
+- [ ] 更多还款方式支持 

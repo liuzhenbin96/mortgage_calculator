@@ -182,16 +182,16 @@ export const PaymentSummaryPanel: React.FC<PaymentSummaryPanelProps> = ({
               <div className="text-center">
                 <p className="text-sm text-gray-600 mb-1">还款总金额</p>
                 <p className="text-xl font-bold text-gray-900">
-                  ¥{item.summary.totalPayment.toLocaleString()}
+                  ¥{(item.summary.totalPayment || 0).toLocaleString()}
                 </p>
                 {!item.isInitial && (
                   <p className={`text-sm font-medium ${
-                    item.summary.totalPayment < (initialSummary?.totalPayment || summary.totalPayment)
+                    (item.summary.totalPayment || 0) < (initialSummary?.totalPayment || summary.totalPayment || 0)
                       ? 'text-green-600' : 'text-red-600'
                   }`}>
-                    {item.summary.totalPayment < (initialSummary?.totalPayment || summary.totalPayment) ? '-' : '+'}
-                    {(Math.abs(item.summary.totalPayment - (initialSummary?.totalPayment || summary.totalPayment)) / 10000).toFixed(2)}万
-                    ({((item.summary.totalPayment - (initialSummary?.totalPayment || summary.totalPayment)) / (initialSummary?.totalPayment || summary.totalPayment) * 100).toFixed(2)}%)
+                    {(item.summary.totalPayment || 0) < (initialSummary?.totalPayment || summary.totalPayment || 0) ? '-' : '+'}
+                    {(Math.abs((item.summary.totalPayment || 0) - (initialSummary?.totalPayment || summary.totalPayment || 0)) / 10000).toFixed(2)}万
+                    ({(((item.summary.totalPayment || 0) - (initialSummary?.totalPayment || summary.totalPayment || 0)) / (initialSummary?.totalPayment || summary.totalPayment || 1) * 100).toFixed(2)}%)
                   </p>
                 )}
               </div>
@@ -200,12 +200,12 @@ export const PaymentSummaryPanel: React.FC<PaymentSummaryPanelProps> = ({
               <div className="text-center">
                 <p className="text-sm text-gray-600 mb-1">利息总金额</p>
                 <p className="text-lg font-bold text-orange-600">
-                  ¥{item.summary.totalInterest.toLocaleString()}
+                  ¥{(item.summary.totalInterest || 0).toLocaleString()}
                 </p>
                 {!item.isInitial && (
                   <p className="text-sm text-green-600 font-medium">
-                    -{((initialSummary?.totalInterest || summary.totalInterest) - item.summary.totalInterest).toLocaleString()}
-                    ({(((initialSummary?.totalInterest || summary.totalInterest) - item.summary.totalInterest) / (initialSummary?.totalInterest || summary.totalInterest) * 100).toFixed(2)}%)
+                    -{((initialSummary?.totalInterest || summary.totalInterest || 0) - (item.summary.totalInterest || 0)).toLocaleString()}
+                    ({(((initialSummary?.totalInterest || summary.totalInterest || 0) - (item.summary.totalInterest || 0)) / (initialSummary?.totalInterest || summary.totalInterest || 1) * 100).toFixed(2)}%)
                   </p>
                 )}
               </div>
@@ -228,13 +228,13 @@ export const PaymentSummaryPanel: React.FC<PaymentSummaryPanelProps> = ({
               <div className="text-center">
                 <p className="text-sm text-gray-600 mb-1">每月还款</p>
                 <p className="text-lg font-bold text-red-600">
-                  ¥{item.summary.monthlyPayment.toLocaleString()}
+                  ¥{item.summary.monthlyPayment?.toLocaleString() || '0'}
                 </p>
-                {!item.isInitial && (
+                {!item.isInitial && item.summary.monthlyPayment && (
                   <p className="text-sm text-gray-600 font-medium">
-                    {item.summary.monthlyPayment > (initialSummary?.monthlyPayment || summary.monthlyPayment) ? '+' : ''}
-                    {(item.summary.monthlyPayment - (initialSummary?.monthlyPayment || summary.monthlyPayment)).toLocaleString()}
-                    ({((item.summary.monthlyPayment - (initialSummary?.monthlyPayment || summary.monthlyPayment)) / (initialSummary?.monthlyPayment || summary.monthlyPayment) * 100).toFixed(2)}%)
+                    {item.summary.monthlyPayment > (initialSummary?.monthlyPayment || summary.monthlyPayment || 0) ? '+' : ''}
+                    {(item.summary.monthlyPayment - (initialSummary?.monthlyPayment || summary.monthlyPayment || 0)).toLocaleString()}
+                    ({((item.summary.monthlyPayment - (initialSummary?.monthlyPayment || summary.monthlyPayment || 0)) / (initialSummary?.monthlyPayment || summary.monthlyPayment || 1) * 100).toFixed(2)}%)
                   </p>
                 )}
               </div>
@@ -242,30 +242,30 @@ export const PaymentSummaryPanel: React.FC<PaymentSummaryPanelProps> = ({
               {/* 影响提示 */}
               {!item.isInitial && (
                 <div className={`border rounded-lg p-3 mt-4 ${
-                  item.summary.totalPayment < (initialSummary?.totalPayment || summary.totalPayment)
+                  (item.summary.totalPayment || 0) < (initialSummary?.totalPayment || summary.totalPayment || 0)
                     ? 'bg-green-100 border-green-200'
                     : 'bg-blue-100 border-blue-200'
                 }`}>
                   <p className={`text-center text-sm font-medium ${
-                    item.summary.totalPayment < (initialSummary?.totalPayment || summary.totalPayment)
+                    (item.summary.totalPayment || 0) < (initialSummary?.totalPayment || summary.totalPayment || 0)
                       ? 'text-green-800'
                       : 'text-blue-800'
                   }`}>与初始方案对比</p>
                   <p className={`text-center text-lg font-bold ${
-                    item.summary.totalPayment < (initialSummary?.totalPayment || summary.totalPayment)
+                    (item.summary.totalPayment || 0) < (initialSummary?.totalPayment || summary.totalPayment || 0)
                       ? 'text-green-600'
                       : 'text-blue-600'
                   }`}>
-                    {item.summary.totalPayment < (initialSummary?.totalPayment || summary.totalPayment)
+                    {(item.summary.totalPayment || 0) < (initialSummary?.totalPayment || summary.totalPayment || 0)
                       ? '节省支出'
                       : '总支出增加'}
                   </p>
                   <p className={`text-center text-xl font-bold ${
-                    item.summary.totalPayment < (initialSummary?.totalPayment || summary.totalPayment)
+                    (item.summary.totalPayment || 0) < (initialSummary?.totalPayment || summary.totalPayment || 0)
                       ? 'text-green-600'
                       : 'text-blue-600'
                   }`}>
-                    ¥{(Math.abs(item.summary.totalPayment - (initialSummary?.totalPayment || summary.totalPayment)) / 10000).toFixed(1)}万
+                    ¥{(Math.abs((item.summary.totalPayment || 0) - (initialSummary?.totalPayment || summary.totalPayment || 0)) / 10000).toFixed(1)}万
                   </p>
                 </div>
               )}
