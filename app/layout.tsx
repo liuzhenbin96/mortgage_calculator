@@ -1,5 +1,6 @@
 import './globals.css';
 import React from 'react';
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata = {
   title: '房贷还款计算器',
@@ -9,7 +10,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics/>
+        </body>
     </html>
   );
 }
