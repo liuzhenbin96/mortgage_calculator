@@ -1,6 +1,8 @@
 import './globals.css';
 import React from 'react';
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 
 export const metadata = {
   title: '房贷还款计算器',
@@ -13,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {children}
         <Analytics/>
+        <SpeedInsights/>
         </body>
     </html>
   );
